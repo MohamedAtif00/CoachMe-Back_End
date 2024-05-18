@@ -3,7 +3,7 @@ using Graduation_Project.Domain.Entity.UserDomain;
 
 namespace Graduation_Project.Application.CQRS.UserFeature.ValidateUser
 {
-    public record ValidateUserQuery(DateTime startDay, TimeSession timeSession) :IQuery<bool>;
+    public record ValidateUserQuery(DateTime startDay) :IQuery<bool>;
     
     
 }

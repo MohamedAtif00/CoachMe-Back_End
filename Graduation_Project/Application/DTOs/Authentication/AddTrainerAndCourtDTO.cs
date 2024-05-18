@@ -2,7 +2,7 @@
 
 namespace Graduation_Project.Application.DTOs.Authentication
 {
-    public record AddTrainerAndCourtDTO(Guid userId,Guid trainerId,TennisCourt TennisCourt);
+    public record AddTrainerAndCourtDTO(Guid userId,Guid trainerId);
     
     
 }

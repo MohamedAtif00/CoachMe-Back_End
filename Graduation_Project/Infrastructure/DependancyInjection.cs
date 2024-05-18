@@ -1,7 +1,8 @@
 ﻿using Graduation_Project.Application.DTOs.Authentication;
 using Graduation_Project.Domain.Abstraction;
+using Graduation_Project.Domain.Repsitory.PlanRepo;
 using Graduation_Project.Domain.Repsitory.RefreshTokenRepo;
-using Graduation_Project.Domain.Repsitory.TournamentRepo;
+using Graduation_Project.Domain.Repsitory.ReservationRepo;
 using Graduation_Project.Domain.Repsitory.TrainerRepo;
 using Graduation_Project.Domain.Repsitory.UserRepo;
 using Graduation_Project.Infrastructure.Data;
@@ -78,7 +79,8 @@ namespace Graduation_Project.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITrainerRepository, TrainerRepository>();
             services.AddScoped<ITrainerRatingRepository, TrainerRatingRepository>();
-            services.AddScoped<ITournamentRepository,TournamentRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
 
             return services;
         }

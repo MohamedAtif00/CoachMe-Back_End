@@ -52,28 +52,35 @@ namespace Graduation_Project.Controllers
 
 
         // POST api/<AuthenticationController>
-        [HttpPost("Register")]
+        [HttpPost("TraineeRegister")]
         public async Task<IActionResult> Register([FromForm] RegisterRequest request)
         {
-            var result = await _authenticationService.Register($"{request.firstName+request.lastName}", request.email, request.password, "User");
+            var result = await _authenticationService.Register($"{request.firstName+request.lastName}", request.email, request.password, "Trainee");
 
             if (result.Value != null && result.Errors.Count() == 0) await _mediator.Send(new AddUserCommand(result.Value.UserId,
                                                                                                             request.firstName,
                                                                                                             request.lastName,
-                                                                                                            request.birthDate,
-                                                                                                            request.nationalId,
-                                                                                                            request.city,
-                                                                                                            request.phone,
                                                                                                             request.image,
-                                                                                                            request.gender,
-                                                                                                            request.tennisExp,
-                                                                                                            request.startDay,
-                                                                                                            new TimeSession(request.timeSession.Hours,request.timeSession.Minutes,request.timeSession.AmPm),
-                                                                                                            request.hasHealthCondition,
-                                                                                                            request.detials));
+                                                                                                            request.gender));
 
             return Ok(result);
         }
+
+        // POST api/<AuthenticationController>
+        [HttpPost("TrainerRegister")]
+        public async Task<IActionResult> TrainerRegister([FromForm] RegisterRequest request)
+        {
+            var result = await _authenticationService.Register($"{request.firstName + request.lastName}", request.email, request.password, "Trainer");
+
+            if (result.Value != null && result.Errors.Count() == 0) await _mediator.Send(new AddUserCommand(result.Value.UserId,
+                                                                                                            request.firstName,
+                                                                                                            request.lastName,
+                                                                                                            request.image,
+                                                                                                            request.gender));
+
+            return Ok(result);
+        }
+
 
         [HttpPost("AddTrainerToUser")]
         public async Task<IActionResult> AddTrainer(AddTrainerAndCourtCommand request)
@@ -84,13 +91,13 @@ namespace Graduation_Project.Controllers
         }
 
 
-        [HttpPost("CheckDate")]
-        public async Task<IActionResult> CheckDate(CheckDateDTO request)
-        {
-            var result = await _mediator.Send(new ValidateUserQuery(request.startDay, new TimeSession(request.timeSession.Hours, request.timeSession.Minutes, request.timeSession.AmPm)));
+        //[HttpPost("CheckDate")]
+        //public async Task<IActionResult> CheckDate(CheckDateDTO request)
+        //{
+        //    var result = await _mediator.Send(new ValidateUserQuery(request.startDay, new TimeSession(request.timeSession.Hours, request.timeSession.Minutes, request.timeSession.AmPm)));
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
 
         [HttpPost("Login")]
@@ -108,11 +115,7 @@ namespace Graduation_Project.Controllers
 
             return Ok(result);
         }
-        // PUT api/<AuthenticationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+
 
         [HttpGet("AllowAccess/{token}")]
         public async Task<IActionResult> AllowAccess(string token)

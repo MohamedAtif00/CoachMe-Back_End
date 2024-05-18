@@ -21,10 +21,7 @@ namespace Graduation_Project.Application.CQRS.UserFeature.ValidateUser
 
                 foreach (var user in users)
                 {
-                    if (user.TimeSession.ToString() == request.timeSession.ToString() && user.StartDay.Month == request.startDay.Month && user.StartDay.Day == request.startDay.Day)
-                    {
-                        return Result.Error("This date is not free");
-                    }
+
                 }
 
                 return Result.Success(true);

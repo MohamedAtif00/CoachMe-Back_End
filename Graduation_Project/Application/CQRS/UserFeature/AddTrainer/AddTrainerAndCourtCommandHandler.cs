@@ -21,7 +21,7 @@ namespace Graduation_Project.Application.CQRS.UserFeature.AddTrainer
             {
                 var user = await _unitOfWork.UserRepository.GetById(UserId.Create(request.userId));
 
-                user.AddTrainerAndCourt(request.TennisCourt,TrainerId.Create(request.trainerId));
+                user.AddTrainerAndCourt(TrainerId.Create(request.trainerId));
 
                 await _unitOfWork.UserRepository.Update(user);
 

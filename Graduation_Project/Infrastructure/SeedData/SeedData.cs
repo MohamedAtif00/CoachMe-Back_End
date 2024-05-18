@@ -13,7 +13,8 @@ namespace Graduation_Project.Infrastructure.SeedData
             context.Database.EnsureCreated();
 
             string asdminRole = "Admin";
-            string userRole = "User";
+            string TraineeRole = "Trainee";
+            string TrainerRole = "Trainer";
             string password4all = "123456789";
 
             if (await roleManager.FindByNameAsync(asdminRole) == null)
@@ -21,10 +22,16 @@ namespace Graduation_Project.Infrastructure.SeedData
                 await roleManager.CreateAsync(new IdentityRole<Guid>(asdminRole));
             }
 
-            if (await roleManager.FindByNameAsync(userRole) == null)
+            if (await roleManager.FindByNameAsync(TraineeRole) == null)
             {
-                await roleManager.CreateAsync(new IdentityRole<Guid>(userRole));
+                await roleManager.CreateAsync(new IdentityRole<Guid>(TraineeRole));
             }
+
+            if (await roleManager.FindByNameAsync(TrainerRole) == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole<Guid>(TrainerRole));
+            }
+
 
             if (await userManager.FindByNameAsync("admin") == null)
             {
