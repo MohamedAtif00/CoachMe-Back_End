@@ -12,6 +12,7 @@ using Graduation_Project.Application.CQRS.UserFeature.ValidateUser;
 using Graduation_Project.Application.CQRS.UserFeature.AddTrainer;
 using System.Linq.Expressions;
 using Graduation_Project.Application.CQRS.UserFeature.GetAllUsers;
+using Graduation_Project.Application.CQRS.TrainerFeature.AddTrainer;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -77,8 +78,9 @@ namespace Graduation_Project.Controllers
                                                                                                             request.lastName,
                                                                                                             request.image,
                                                                                                             request.gender));
+            if (result.Value != null && result.Errors.Count() == 0) await _mediator.Send(new AddTrainerCommand(result.Value.UserId,$"{request.firstName+" "+request.lastName }",request.email,request.image));
 
-            return Ok(result);
+                return Ok(result);
         }
 
 
@@ -103,15 +105,23 @@ namespace Graduation_Project.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var result = await _authenticationService.Login(request.email, request.password, "User");
+            var result = await _authenticationService.Login(request.email, request.password);
 
             return Ok(result);
         }
 
+        //[HttpPost("TrainerLogin")]
+        //public async Task<IActionResult> TrainerLogin([FromBody] LoginRequest request)
+        //{
+        //    var result = await _authenticationService.Login(request.email, request.password, "Trainer");
+
+        //    return Ok(result);
+        //}
+
         [HttpPost("LoginAdmin")]
         public async Task<IActionResult> LoginAdmin([FromBody] LoginRequest request)
         {
-            var result = await _authenticationService.Login(request.email, request.password, "Admin");
+            var result = await _authenticationService.Login(request.email, request.password);
 
             return Ok(result);
         }

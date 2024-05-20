@@ -1,4 +1,5 @@
 ﻿using Graduation_Project.Domain.Entity.TrainerDomain;
+using Graduation_Project.Domain.Entity.UserDomain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

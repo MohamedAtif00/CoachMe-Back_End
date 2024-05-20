@@ -116,7 +116,7 @@ namespace Graduation_Project.Application.Services
         }
 
 
-        public async Task<Result<JwtTokenDto>> Login(string email, string password, string role)
+        public async Task<Result<JwtTokenDto>> Login(string email, string password)
         {
             try
             {
@@ -131,14 +131,14 @@ namespace Graduation_Project.Application.Services
                     return Result.Error("username is required");
                 }
 
-                if (role == "User")
-                {
-                    user = await _userManager.FindByEmailAsync(email);
+                //if (role == "User")
+                //{
+                //    user = await _userManager.FindByEmailAsync(email);
 
-                }
-                else { 
-                    user = await _userManager.FindByNameAsync(email);
-                }
+                //}
+                //else { 
+                  user = await _userManager.FindByEmailAsync(email);
+                //}
 
                 if (user == null)
                 {
@@ -146,7 +146,7 @@ namespace Graduation_Project.Application.Services
                 }
                 var userRole = await _userManager.GetRolesAsync(user);
 
-                if (userRole == null || userRole[0] != role) { return Result.Error($"this user doesn't has {role} role"); }
+                //if (userRole == null || userRole[0] != role) { return Result.Error($"this user doesn't has {role} role"); }
 
 
                 //var user = await _userManager.FindByNameAsync(loginDto.Username);
@@ -161,14 +161,14 @@ namespace Graduation_Project.Application.Services
                 }
 
                 //Generate Claims Identity
-                var claimIdentity = await GenerateClaimsIdentity(user, role);
+                var claimIdentity = await GenerateClaimsIdentity(user, userRole[0]);
                 //Generate JWT Token
                 var jwtToken = await GenerateAccessToken(claimIdentity);
                 //Generate Refresh Toekn
                 var refreshToken = await GenerateRefreshToken(user);
                 //Set these into jwwtTokenVm
                 jwttokenDto.JwtToken = jwtToken;
-                jwttokenDto.Role = role;
+                jwttokenDto.Role = userRole[0];
                 jwttokenDto.UserId = user.Id;
                 jwttokenDto.Username = user.UserName??"";
                 jwttokenDto.RefreshToken = refreshToken;

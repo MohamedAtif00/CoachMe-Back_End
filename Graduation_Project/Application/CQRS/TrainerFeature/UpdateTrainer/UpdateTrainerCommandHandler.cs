@@ -29,7 +29,7 @@ namespace Graduation_Project.Application.CQRS.TrainerFeature.UpdateTrainer
                     file = memoryStream.ToArray();
                 }
 
-                trainer.Update(request.username, file, request.birthdate, request.exp, request.specia, request.phone, request.email,request.price);
+                trainer.Update(request.username, file, request.email);
 
                  await _unitOfWork.TrainerRepository.Update(trainer);
 

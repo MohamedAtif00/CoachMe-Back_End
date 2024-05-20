@@ -41,6 +41,15 @@ namespace Graduation_Project.Controllers
         }
 
         // GET api/<TrainerController>/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(Guid id)
+        //{
+        //    var result = await _mediator.Send(new GetSingleTrainerQuery(id));
+        //    return Ok(result);
+        //}
+
+
+        // GET api/<TrainerController>/5
         [HttpGet("GetRatingsForTrainer/{id}")]
         public async Task<IActionResult> GetRates(Guid id)
         {

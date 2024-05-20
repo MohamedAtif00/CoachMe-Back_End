@@ -2,6 +2,7 @@
 using Graduation_Project.Application.Abstraction;
 using Graduation_Project.Domain.Abstraction;
 using Graduation_Project.Domain.Entity.TrainerDomain;
+using Graduation_Project.Domain.Entity.UserDomain;
 
 namespace Graduation_Project.Application.CQRS.TrainerFeature.AddTrainer
 {
@@ -25,7 +26,7 @@ namespace Graduation_Project.Application.CQRS.TrainerFeature.AddTrainer
                     file = memoryStream.ToArray();
                 }
 
-                var result = await _unitOfWork.TrainerRepository.Add(Trainer.Create(request.username,file,request.birthdate,request.exp,request.specia,request.phone,request.email,request.price)); 
+                var result = await _unitOfWork.TrainerRepository.Add(Trainer.Create(request.userId,request.username,file,request.email)); 
 
                 int saving = await _unitOfWork.save();
 

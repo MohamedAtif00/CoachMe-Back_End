@@ -12,7 +12,7 @@ namespace Graduation_Project.Application.Abstraction
         Task<string> GenerateAccessToken(ClaimsIdentity claimsIdentity);
         Task<ClaimsIdentity> GenerateClaimsIdentity(IdentityUser<Guid> user, string role);
         Task<string> GenerateRefreshToken(IdentityUser<Guid> newUser);
-        Task<Result<JwtTokenDto>> Login(string username, string password, string role);
+        Task<Result<JwtTokenDto>> Login(string username, string password);
         Task<Result<JwtTokenDto>> Register(string Username, string Email, string Password, string Role);
     }
 }
