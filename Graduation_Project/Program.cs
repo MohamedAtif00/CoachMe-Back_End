@@ -1,5 +1,6 @@
 
 using Graduation_Project.Application;
+using Graduation_Project.Application.Services;
 using Graduation_Project.Infrastructure;
 using Graduation_Project.Infrastructure.Data;
 using Graduation_Project.Infrastructure.SeedData;
@@ -15,7 +16,7 @@ namespace Graduation_Project
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Services.BuildServiceProvider().GetService<IConfiguration>();
             // Add services to the container.
-
+            builder.Services.AddSignalR();
             builder.Services.AddControllers();
 
             builder.Services.AddInfrastructure(configuration).AddApplication();
@@ -38,6 +39,7 @@ namespace Graduation_Project
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            app.UseWebSockets();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -61,10 +63,20 @@ namespace Graduation_Project
 
             app.UseAuthorization();
 
+            app.UseRouting();
 
             app.MapControllers();
 
+
+
             app.UseCors("AllowOrigin");
+
+            app.MapHub<ChatHub>("/chatHub", options =>
+            {
+                options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+            });
+
+
 
             app.Run();
         }

@@ -26,7 +26,7 @@ namespace Graduation_Project.Application.CQRS.TrainerFeature.AddTrainer
                     file = memoryStream.ToArray();
                 }
 
-                var result = await _unitOfWork.TrainerRepository.Add(Trainer.Create(request.userId,request.username,file,request.email)); 
+                var result = await _unitOfWork.TrainerRepository.Add(Trainer.Create(request.userId,request.username,file,request.email,request.about)); 
 
                 int saving = await _unitOfWork.save();
 

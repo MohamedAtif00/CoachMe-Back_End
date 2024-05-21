@@ -20,7 +20,7 @@ namespace Graduation_Project.Application.CQRS.PlanFeature.AddPlan
         {
             try
             {
-                var plan = Plan.Create(request.duration,request.focus,request.sessions,request.price,UserId.Create(request.trainerId));
+                var plan = Plan.Create(request.name,request.duration,request.focus,request.sessions,request.price,UserId.Create(request.trainerId));
 
                 await _unitOfWork.PlanRepository.Add(plan);
 

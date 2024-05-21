@@ -69,7 +69,7 @@ namespace Graduation_Project.Controllers
 
         // POST api/<AuthenticationController>
         [HttpPost("TrainerRegister")]
-        public async Task<IActionResult> TrainerRegister([FromForm] RegisterRequest request)
+        public async Task<IActionResult> TrainerRegister([FromForm] TrainerRegisterRequest request)
         {
             var result = await _authenticationService.Register($"{request.firstName + request.lastName}", request.email, request.password, "Trainer");
 
@@ -78,7 +78,7 @@ namespace Graduation_Project.Controllers
                                                                                                             request.lastName,
                                                                                                             request.image,
                                                                                                             request.gender));
-            if (result.Value != null && result.Errors.Count() == 0) await _mediator.Send(new AddTrainerCommand(result.Value.UserId,$"{request.firstName+" "+request.lastName }",request.email,request.image));
+            if (result.Value != null && result.Errors.Count() == 0) await _mediator.Send(new AddTrainerCommand(result.Value.UserId,$"{request.firstName+" "+request.lastName }",request.email,request.image,request.about));
 
                 return Ok(result);
         }
