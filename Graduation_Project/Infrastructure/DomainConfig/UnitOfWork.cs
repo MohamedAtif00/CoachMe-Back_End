@@ -1,4 +1,5 @@
 ﻿using Graduation_Project.Domain.Abstraction;
+using Graduation_Project.Domain.Repsitory.ChatRepo;
 using Graduation_Project.Domain.Repsitory.PlanRepo;
 using Graduation_Project.Domain.Repsitory.RefreshTokenRepo;
 using Graduation_Project.Domain.Repsitory.ReservationRepo;
@@ -11,7 +12,7 @@ namespace Graduation_Project.Infrastructure.DomainConfig
     public class UnitOfWork : IUnitOfWork
     {
         public readonly ApplicationDbContext _applicationDbContext;
-        public UnitOfWork(ApplicationDbContext applicationDbContext, IRefreshTokenRepository refreshTokenRepository, IUserRepository userRepository, ITrainerRepository trainerRepository, ITrainerRatingRepository trainerRatingRepository, IReservationRepository reservationRepository, IPlanRepository PlanRepository)
+        public UnitOfWork(ApplicationDbContext applicationDbContext, IRefreshTokenRepository refreshTokenRepository, IUserRepository userRepository, ITrainerRepository trainerRepository, ITrainerRatingRepository trainerRatingRepository, IReservationRepository reservationRepository, IPlanRepository PlanRepository, IChatRepository chatRepository)
         {
             _applicationDbContext = applicationDbContext;
 
@@ -21,6 +22,7 @@ namespace Graduation_Project.Infrastructure.DomainConfig
             TrainerRatingRepository = trainerRatingRepository;
             ReservationRepository = reservationRepository;
             this.PlanRepository = PlanRepository;
+            ChatRepository = chatRepository;
         }
 
 
@@ -31,6 +33,7 @@ namespace Graduation_Project.Infrastructure.DomainConfig
         public ITrainerRatingRepository TrainerRatingRepository { get; }
         public IReservationRepository ReservationRepository { get; }
         public IPlanRepository PlanRepository { get; }
+        public IChatRepository ChatRepository { get; }
 
         public async Task<int> save()
         {

@@ -1,4 +1,5 @@
-﻿using Graduation_Project.Domain.Entity.PlanDomain;
+﻿using Graduation_Project.Domain.Entity.ChatDomain;
+using Graduation_Project.Domain.Entity.PlanDomain;
 using Graduation_Project.Domain.Entity.RefreshTokenDomain;
 using Graduation_Project.Domain.Entity.ReservationDomain;
 using Graduation_Project.Domain.Entity.TrainerDomain;
@@ -23,6 +24,7 @@ namespace Graduation_Project.Infrastructure.Data
         public DbSet<TrainerRating> trainerRatings { get; set; }
         public DbSet<Reservation> reservations { get; set; }
         public DbSet<Plan> plans { get; set; }
+        public DbSet<Chat> chats { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

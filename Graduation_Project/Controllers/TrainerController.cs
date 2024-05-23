@@ -86,10 +86,10 @@ namespace Graduation_Project.Controllers
         }
 
         // PUT api/<TrainerController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<TrainerController>/5
         [HttpDelete("{id}")]

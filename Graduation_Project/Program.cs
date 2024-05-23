@@ -71,9 +71,13 @@ namespace Graduation_Project
 
             app.UseCors("AllowOrigin");
 
-            app.MapHub<ChatHub>("/chatHub", options =>
+            app.UseEndpoints(endpoints =>
             {
-                options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+                endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chatHub", options =>
+                {
+                    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+                });
             });
 
 

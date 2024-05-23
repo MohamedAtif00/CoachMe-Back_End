@@ -1,5 +1,6 @@
 ﻿using Graduation_Project.Application.DTOs.Authentication;
 using Graduation_Project.Domain.Abstraction;
+using Graduation_Project.Domain.Repsitory.ChatRepo;
 using Graduation_Project.Domain.Repsitory.PlanRepo;
 using Graduation_Project.Domain.Repsitory.RefreshTokenRepo;
 using Graduation_Project.Domain.Repsitory.ReservationRepo;
@@ -81,6 +82,7 @@ namespace Graduation_Project.Infrastructure
             services.AddScoped<ITrainerRatingRepository, TrainerRatingRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IChatRepository, ChatRepository>();
 
             return services;
         }

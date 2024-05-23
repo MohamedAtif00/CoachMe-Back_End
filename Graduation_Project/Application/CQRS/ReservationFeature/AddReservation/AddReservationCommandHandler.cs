@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using Graduation_Project.Application.Abstraction;
 using Graduation_Project.Domain.Abstraction;
+using Graduation_Project.Domain.Entity.ChatDomain;
 using Graduation_Project.Domain.Entity.PlanDomain;
 using Graduation_Project.Domain.Entity.ReservationDomain;
 using Graduation_Project.Domain.Entity.TrainerDomain;
@@ -28,9 +29,22 @@ namespace Graduation_Project.Application.CQRS.ReservationFeature.AddReservation
                                                                                                 )
                                                                                 );
 
-                int saving = await _unitOfWork.save();
 
-                if (saving == 0) return Result.Error("No changes");
+                // Send Message with plan name to the trainer
+                var plan = await _unitOfWork.PlanRepository.GetById(planId.Create(request.planId));
+
+                var trainer = await _unitOfWork.TrainerRepository.GetById(TrainerId.Create(request.trainerId));
+
+                var chat = Chat.Create(UserId.Create(request.trainee),
+                                       UserId.Create(request.trainerId),
+                                       $"Hi Captain {trainer.Username} I wanna Participate in {plan.Name} Plan");
+
+
+                var message = await _unitOfWork.ChatRepository.Add(chat);
+
+
+                int saving = await _unitOfWork.save();
+                if (saving == 0) { return Result.Error("No changes"); }
 
                 return Result.Success();
             }catch (Exception ex)

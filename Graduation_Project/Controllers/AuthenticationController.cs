@@ -84,13 +84,13 @@ namespace Graduation_Project.Controllers
         }
 
 
-        [HttpPost("AddTrainerToUser")]
-        public async Task<IActionResult> AddTrainer(AddTrainerAndCourtCommand request)
-        {
-            var result = await _mediator.Send(request);
+        //[HttpPost("AddTrainerToUser")]
+        //public async Task<IActionResult> AddTrainer(AddTrainerAndCourtCommand request)
+        //{
+        //    var result = await _mediator.Send(request);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
 
         //[HttpPost("CheckDate")]
