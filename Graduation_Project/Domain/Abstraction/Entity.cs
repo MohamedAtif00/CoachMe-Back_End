@@ -13,8 +13,8 @@
 
         public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(obj, null)) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            //if (ReferenceEquals(obj, null)) return false;
+            //if (ReferenceEquals(obj, this)) return true;
             return obj is Entity<TId> && Id.Equals(((Entity<TId>)obj).Id);
         }
 

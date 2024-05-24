@@ -7,7 +7,7 @@ namespace Graduation_Project.Application.Services
         public override async Task OnConnectedAsync()
         {
             Console.WriteLine("Client connected via WebSocket.");
-            await Clients.Caller.SendAsync("ReceiveMessage", "ChatBot", "Welcome to the chat!");
+            await Clients.All.SendAsync("ReceiveMessage", "ChatBot", "Welcome to the chat!");
             await base.OnConnectedAsync();
         }
 

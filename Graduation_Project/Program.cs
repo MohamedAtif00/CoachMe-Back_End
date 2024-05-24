@@ -45,19 +45,21 @@ namespace Graduation_Project
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
 
-                var context = services.GetRequiredService<ApplicationDbContext>();
+            //    var context = services.GetRequiredService<ApplicationDbContext>();
 
-                context.Database.Migrate();
+            //    context.Database.Migrate();
 
-                var userMgr = services.GetRequiredService<UserManager<IdentityUser<Guid>>>();
-                var roleMgr = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+            //    var userMgr = services.GetRequiredService<UserManager<IdentityUser<Guid>>>();
+            //    var roleMgr = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
-                SeedData.Initialize(context, userMgr, roleMgr).Wait();
-            }
+            //    SeedData.Initialize(context, userMgr, roleMgr).Wait();
+            //}
 
             app.UseHttpsRedirection();
 
@@ -71,14 +73,8 @@ namespace Graduation_Project
 
             app.UseCors("AllowOrigin");
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chatHub", options =>
-                {
-                    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
-                });
-            });
+            app.MapHub<ChatHub>("/chatHub");
+    
 
 
 

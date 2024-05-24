@@ -2,8 +2,10 @@
 using Graduation_Project.Application.CQRS.ChatFeature.GetAllMessaagesForTrainee;
 using Graduation_Project.Application.CQRS.ChatFeature.GetAllMessagesForTrainer;
 using Graduation_Project.Application.CQRS.ChatFeature.GetAllMessagesWithTrainee;
+using Graduation_Project.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +16,20 @@ namespace Graduation_Project.Controllers
     public class ChatController : ControllerBase
     {
         private readonly IMediator mediator;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public ChatController(IMediator mediator)
+        public ChatController(IMediator mediator, IHubContext<ChatHub> hubContext)
         {
             this.mediator = mediator;
+            this._hubContext = hubContext;
+        }
+
+
+        [HttpPost("RealTimeChat")]
+        public async Task<IActionResult> SendMessage([FromBody] MessageRequest request)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", request.User, request.Message);
+            return Ok(new { Message = "Message sent" });
         }
 
         // GET: api/<ChatController>
@@ -79,5 +91,11 @@ namespace Graduation_Project.Controllers
         //public void Delete(int id)
         //{
         //}
+    }
+
+    public class MessageRequest
+    {
+        public string User { get; set; }
+        public string Message { get; set; }
     }
 }
